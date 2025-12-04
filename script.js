@@ -1,7 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     const videoContainers = document.querySelectorAll('.video-container');
 
+    // Function to update time
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleString("en-GB", { 
+            timeZone: "Europe/Lisbon", 
+            hour12: false, 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit' 
+        });
+
+        document.querySelectorAll('.timestamp').forEach(el => {
+            el.textContent = timeString;
+        });
+    }
+
+    // Update time immediately and then every second
+    updateTime();
+    setInterval(updateTime, 1000);
+
     videoContainers.forEach(container => {
+        const closeBtn = container.querySelector('.close-btn');
+
         container.addEventListener('click', () => {
             // Check if this container is already fullscreen
             const isFullscreen = container.classList.contains('fullscreen');
@@ -12,16 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // If it wasn't fullscreen, make it fullscreen
             if (!isFullscreen) {
                 container.classList.add('fullscreen');
-                
-                // Optionally unmute the video when fullscreen?
-                // const video = container.querySelector('video');
-                // if (video) video.muted = false; 
-            } else {
-                 // If it was fullscreen, we just removed the class, so it goes back to grid.
-                 // Mute it again if we unmuted
-                 // const video = container.querySelector('video');
-                 // if (video) video.muted = true;
-            }
+            } 
         });
+
+        // Handle close button click
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                // Prevent bubbling to the container click event
+                e.stopPropagation();
+                container.classList.remove('fullscreen');
+            });
+        }
     });
 });

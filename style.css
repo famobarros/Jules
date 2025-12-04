@@ -73,3 +73,42 @@ body {
 .video-container.fullscreen .overlay {
     font-size: 20px;
 }
+
+.timestamp {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 5px;
+    font-size: 12px;
+    pointer-events: none;
+    color: #0f0;
+    text-shadow: 0 0 2px #0f0;
+}
+
+.video-container.fullscreen .timestamp {
+    font-size: 20px;
+}
+
+.close-btn {
+    display: none;
+    position: absolute;
+    top: 50px; /* Below the timestamp or overlay if they are top */
+    right: 10px;
+    background: rgba(255, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: 5px;
+}
+
+.close-btn:hover {
+    background: rgba(255, 0, 0, 0.8);
+}
+
+.video-container.fullscreen .close-btn {
+    display: block;
+}
